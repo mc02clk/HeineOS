@@ -171,7 +171,8 @@ load_gdt:
     mov fs, ax
     mov gs, ax
 
-    ; TODO: Load TSS register with the TSS descriptor
+    mov ax, 5 * 8
+    ltr ax
 
     ; Load data segment selector into stack segment register
     mov ax, (2 * 0x08)
@@ -188,15 +189,23 @@ load_cs_jmp:
 ; Set TSS base address in TSS descriptor
 tss_set_base_address:
     mov rax, tss
+
     mov word [tss_descriptor + 2], ax
     shr rax, 16
+
     mov byte [tss_descriptor + 4], al
+    shr rax, 8
+
+    mov byte [tss_descriptor + 7], al
+    shr rax, 8
+
+    mov dword [tss_descriptor + 8], eax
     ret
 
 ; Set kernel stack (rsp0) in TSS
 ; First Parameter -> RDI = Pointer to kernel stack
 tss_set_rsp0:
-    ; TODO: Implement this function to set the rsp0 entry in the TSS
+    mov [tss + 4], rdi
     ret
 
 ; Get the start address of the TSS (return value in rax)
