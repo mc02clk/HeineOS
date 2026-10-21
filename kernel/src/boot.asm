@@ -221,6 +221,17 @@ gdt:
     dw  0x00cf     ; Limit [16:19] = 0xf; Base [31:24] = 0; Flags = { Granularity = 4 KiB, Long Mode }
 
     ; TODO: Add user code and data segments
+    ; User code segment (Ring 3)
+    dw 0xffff
+    dw 0x0000
+    dw 0xfa00
+    dw 0x00af
+
+    ; User data segment (Ring 3)
+    dw 0xffff
+    dw 0x0000
+    dw 0xf200
+    dw 0x00cf
 
     ; TODO: Add task state segment (TSS)
 
@@ -228,7 +239,7 @@ gdt:
 align 8
 gdt_descriptor:
     ; TODO: Adjust limit after adding descriptors to GDT
-    dw 3 * 8 - 1    ; GDT has 3 entries of 8 bytes each; Limit = size - 1
+    dw 5 * 8 - 1    ; GDT has 3 entries of 8 bytes each; Limit = size - 1
     dq gdt          ; Address of the GDT
 
 tss:
