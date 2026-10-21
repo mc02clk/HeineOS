@@ -234,6 +234,15 @@ gdt:
     dw 0x00cf
 
     ; TODO: Add task state segment (TSS)
+    tss_descriptor:
+    dw 0x0067
+    dw 0x0000
+    db 0x00
+    db 0x89
+    db 0x00
+    db 0x00
+    dd 0x00000000
+    dd 0x00000000
 
 ; Descriptor for the GDT
 align 8
