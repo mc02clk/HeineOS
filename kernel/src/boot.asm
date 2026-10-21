@@ -188,6 +188,8 @@ load_cs_jmp:
 ; Set TSS base address in TSS descriptor
 tss_set_base_address:
     ; TODO: Implement this function to set the TSS base address
+    mov rax, tss
+    mov word [tss_descriptor + 2], ax
     ret
 
 ; Set kernel stack (rsp0) in TSS
