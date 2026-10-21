@@ -248,7 +248,7 @@ gdt:
 align 8
 gdt_descriptor:
     ; TODO: Adjust limit after adding descriptors to GDT
-    dw 5 * 8 - 1    ; GDT has 3 entries of 8 bytes each; Limit = size - 1
+    dw 7 * 8 - 1    
     dq gdt          ; Address of the GDT
 
 tss:
